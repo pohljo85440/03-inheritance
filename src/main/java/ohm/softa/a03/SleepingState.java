@@ -1,11 +1,15 @@
 package ohm.softa.a03;
 
-public class SleepingState extends State{
+public class SleepingState extends State {
+    public SleepingState(int duration) {
+        super(duration, 0);
+    }
+
     @Override
     State successor(Cat cat) {
-        if(getTime() == cat.getSleep()) {
+        if(getTime() == getDuration()) {
             logger.info("Yoan... getting hungry!");
-            return new HungryState();
+            return new HungryState(cat.getAwake());
         }
         return this;
     }

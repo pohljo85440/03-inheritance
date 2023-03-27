@@ -8,6 +8,11 @@ public abstract class State {
     private int t;
     private final int duration;
 
+    public State(int duration, int time) {
+        this.duration = duration;
+        this.t = time;
+    }
+
     State tick(Cat cat) {
         logger.info("tick()");
         t = t + 1;

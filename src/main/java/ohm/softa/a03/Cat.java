@@ -14,17 +14,17 @@ public class Cat {
 		this.sleep = sleep;
 		this.awake = awake;
 		this.digest = digest;
-		this.current = new SleepingState();
+		this.current = new SleepingState(sleep);
 	}
 
 	public void feed() {
 		if (!isHungry())
 			throw new IllegalStateException("Can't stuff a cat...");
-		((HungryState) current).feed(this);
+		current = ((HungryState) current).feed(this);
 	}
 
 	public void tick() {
-		current.tick(this);
+		current = current.tick(this);
 	}
 
 	public boolean isAsleep() {
@@ -38,6 +38,9 @@ public class Cat {
 	public boolean isHungry() {
 		return current.getClass() == HungryState.class;
 	}
+	public boolean isDigesting() {
+		return current.getClass() == DigestingState.class;
+	}
 
 	public boolean isDead(){
 		return current.getClass() == DeathState.class;
@@ -47,7 +50,7 @@ public class Cat {
 		return sleep;
 	}
 
-	public int getDigest() {
+	public int getDigesting() {
 		return digest;
 	}
 
